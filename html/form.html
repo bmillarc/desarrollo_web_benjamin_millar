@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
 	<title>Form Validation</title>
     <link rel="stylesheet" type="text/css" href="../css/form.css">
 </head>
@@ -12,6 +13,8 @@
         </div>
         <form name="myForm" method="post" enctype="multipart/form-data">
             
+            <p>Donde?</p>
+
             <label for="select-department">Mejor departamento</label>
             <select name="select-department" id="select-department" required>
                 <option value="">Seleccione un departamento</option>
@@ -34,6 +37,9 @@
             <ul id="val-list"></ul>
         </div>
         <form name="myForm" method="post" enctype="multipart/form-data">
+
+            <p>Quien organiza?</p>
+
             <label for="nombre">Nombre</label>
             <input type="nombre" name="nombre" id="nombre" minlength="15" maxlength="80"><br>
             
@@ -57,6 +63,9 @@
             <ul id="val-list"></ul>
         </div>
         <form name="myForm" method="post" enctype="multipart/form-data">
+
+            <p>Cuando y de que trata?</p>
+
             <label for="nombre">Nombre</label>
             <input type="nombre" name="nombre" id="nombre" minlength="15" maxlength="80"><br>
             
