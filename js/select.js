@@ -47,8 +47,18 @@ const region_comuna = {
 "Ranquil","Quillon","El Carmen","Pemuco","Yungay","Chillan Viejo"]
 };
   
-  const temas ={"Musica":1,"deporte":1,"ceincias":1,"religion":1,"politica":1,"tecnologia":1,"juegos":1,"baile":1,"comida":1,"otro":1};
+  const temas ={"Musica":1,"deporte":1,"ciencias":1,"religion":1,"politica":1,"tecnologia":1,"juegos":1,"baile":1,"comida":1,"otro":1};
+  const contactos ={"whatsapp":1,"telegram":1,"X":1,"instagram":1,"tiktok":1,"otra":1};
 
+  const poblarContactos = () => {
+    let temaSelect = document.getElementById("select-contacto");
+    for (const tema in contactos) {
+      let option =document.createElement("option");
+      option.value = tema;
+      option.text = tema;
+      temaSelect.appendChild(option);
+    }
+  };
   const poblarTemas = () => {
     let temaSelect = document.getElementById("select-tema");
     for (const tema in temas) {
@@ -100,12 +110,44 @@ const region_comuna = {
         reasonTextarea.style.display = "none";
     }
   }
+
+  function changeArguments1() {
+    const courseSelect = document.getElementById("select-contacto");
+    const reasonLabel = document.querySelector("label[for='contacto']");
+    const reasonTextarea = document.getElementById("contacto");
+    
+    if (courseSelect.value !== "") {
+        reasonLabel.style.display = "block";
+        reasonTextarea.style.display = "block";
+    } else {
+        reasonLabel.style.display = "none";
+        reasonTextarea.style.display = "none";
+    }
+  }
+  function changeArguments2() {
+    const courseSelect = document.getElementById("select-tema");
+    const reasonLabel = document.querySelector("label[for='tipo']");
+    const reasonTextarea = document.getElementById("tipo");
+    
+    if (courseSelect.value == "otro") {
+        reasonLabel.style.display = "block";
+        reasonTextarea.style.display = "block";
+    } else {
+        reasonLabel.style.display = "none";
+        reasonTextarea.style.display = "none";
+    }
+  }
   
   document.getElementById("select-region").addEventListener("change", updateCursos);
   document.getElementById("select-comuna").addEventListener("change", changeArguments);
+  document.getElementById("select-contacto").addEventListener("change", changeArguments1);
+  document.getElementById("select-tema").addEventListener("change", changeArguments2);
   
   window.onload = () => {
     poblarDepartamentos();
     poblarTemas();
     changeArguments();
+    changeArguments1();
+    changeArguments2();
+    poblarContactos();
   };

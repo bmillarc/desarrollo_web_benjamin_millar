@@ -48,7 +48,7 @@
                 <option value="">Seleccione una forma de contacto</option>
             </select><br>
 
-            <label for="select-contacto" style="display: none;">Sector</label>
+            <label for="contacto" style="display: none;">Url o Id de contacto</label>
             <textarea name="contacto" id="contacto" rows="1" cols="50" style="display: none;"></textarea><br>
 
             <p>Cuando y de que trata?</p>
@@ -59,10 +59,13 @@
             <label for="horaf">Hora de termino</label>
             <input type="datetime-local" name="horaf" id="horaf"><br>
 
-            <label for="tema">Tema</label>
+            <label for="select-tema">Tema</label>
             <select name="select-tema" id="select-tema" required>
                 <option value="">Seleccione un tema</option>
             </select><br>
+
+            <label for="tipo" style="display: none;">Tipo de actividad</label>
+            <textarea name="tipo" id="tipo" rows="1" cols="50" style="display: none;"></textarea><br>
 
             <label for="descripcion">Descripcion</label>
             <textarea name="descripcion" id="descripcion" rows="10" cols="50"></textarea><br>
