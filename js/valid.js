@@ -17,18 +17,17 @@ const validateName = (name) => {
     return lengthValid && formatValid;
   };
   
+  
   const validatePhoneNumber = (phoneNumber) => {
-    if (!phoneNumber) return false;
-    // validación de longitud
-    let lengthValid = phoneNumber.length >= 8;
-  
+    
+
     // validación de formato
-    let re = /^[0-9]+$/;
+    let re = /^\+\d{1,3} \d{8,}$/;
     let formatValid = re.test(phoneNumber);
-  
-    // devolvemos la lógica AND de las validaciones.
-    return lengthValid && formatValid;
-  };
+
+    // devolvemos la validación del formato
+    return formatValid;
+};
   
   const validateFiles = (files) => {
     if (!files) return false;
@@ -82,7 +81,7 @@ const validateName = (name) => {
   }
   const validateForm = () => {
     // obtener elementos del DOM usando el nombre del formulario.
-    console.log("boton")
+    
     let myForm = document.forms["myForm"];
     let email = myForm["email"].value;
     let phoneNumber = myForm["phone"].value;
@@ -92,10 +91,15 @@ const validateName = (name) => {
     let curso = myForm["select-comuna"].value;
     let fechai = myForm["horai"].value;
     let fechaf = myForm["horaf"].value;
-    let descripcion = myForm["descripcion"].value;
     let contacto = myForm["select-contacto"].value;
     let tema = myForm["select-tema"].value;
+    let tipo = myForm["tipo"].value;
     let sector =myForm["comments"].value;
+    console.log(Number(fechai.slice(11,13)))
+    console.log(Number(fechai.slice(14,16)))
+    console.log(Number(fechai.slice(0,4)))
+    console.log(Number(fechai.slice(5,7)))
+    console.log(Number(fechai.slice(8,10)))
   
     // variables auxiliares de validación y función.
     let invalidInputs = [];
@@ -112,8 +116,10 @@ const validateName = (name) => {
     if (!validateEmail(email)) {
       setInvalidInput("Email");
     }
-    if (!validatePhoneNumber(phoneNumber)) {
-      setInvalidInput("Número");
+    if (phoneNumber != ""){
+      if (!validatePhoneNumber(phoneNumber)) {
+        setInvalidInput("Número");
+      }
     }
     if (!validateFiles(files)) {
       setInvalidInput("Fotos");
@@ -123,6 +129,16 @@ const validateName = (name) => {
     }
     if (!validateSelect(curso)) {
       setInvalidInput("Curso");
+    }
+    if (!validateSelect(tema)) {
+      setInvalidInput("Tema");
+    }
+    if (tema=="otro") {
+      if (!validateTema(tipo))
+      setInvalidInput("Tema");
+    }
+    if (!validateSector(sector)) {
+      setInvalidInput("Sector")
     }
   
     // finalmente mostrar la validación
