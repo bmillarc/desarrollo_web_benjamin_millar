@@ -34,7 +34,7 @@ const validateName = (name) => {
     if (!files) return false;
   
     // validación del número de archivos
-    let lengthValid = 1 <= files.length && files.length <= 3;
+    let lengthValid = 1 <= files.length && files.length <= 5;
   
     // validación del tipo de archivo
     let typeValid = true;
@@ -53,16 +53,49 @@ const validateName = (name) => {
     if(!select) return false;
     return true
   }
-  
+  const validateSector = (name) => {
+    
+    let lengthValid = name.trim().length <= 100;
+    
+    return lengthValid;
+  }
+
+  const validateContact = (name) => {
+    
+    let lengthValid = name.trim().length <= 50 && name.trim().length >=4;
+    
+    return lengthValid;
+  }
+
+  const validateHoraf = (name) => {
+    
+    let lengthValid = name.trim().length <= 100;
+    
+    return lengthValid;
+  }
+
+  const validateTema = (name) => {
+    
+    let lengthValid = name.trim().length <= 15 && name.trim().length >=3;
+    
+    return lengthValid;
+  }
   const validateForm = () => {
     // obtener elementos del DOM usando el nombre del formulario.
+    console.log("boton")
     let myForm = document.forms["myForm"];
     let email = myForm["email"].value;
     let phoneNumber = myForm["phone"].value;
     let name = myForm["nombre"].value;
     let files = myForm["files"].files;
-    let department = myForm["select-department"].value;
-    let curso = myForm["select-course"].value;
+    let department = myForm["select-region"].value;
+    let curso = myForm["select-comuna"].value;
+    let fechai = myForm["horai"].value;
+    let fechaf = myForm["horaf"].value;
+    let descripcion = myForm["descripcion"].value;
+    let contacto = myForm["select-contacto"].value;
+    let tema = myForm["select-tema"].value;
+    let sector =myForm["comments"].value;
   
     // variables auxiliares de validación y función.
     let invalidInputs = [];
