@@ -7,7 +7,7 @@ const validateName = (name) => {
   
   const validateEmail = (email) => {
     if (!email) return false;
-    let lengthValid = email.length > 15;
+    let lengthValid = email.length > 15 && email.length<=100;
   
     // validamos el formato
     let re = /^[\w.]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
@@ -21,11 +21,11 @@ const validateName = (name) => {
   const validatePhoneNumber = (phoneNumber) => {
     
 
-    // validación de formato
+    
     let re = /^\+\d{1,3} \d{8,}$/;
     let formatValid = re.test(phoneNumber);
 
-    // devolvemos la validación del formato
+    
     return formatValid;
 };
   
@@ -66,12 +66,7 @@ const validateName = (name) => {
     return lengthValid;
   }
 
-  const validateHoraf = (name) => {
-    
-    let lengthValid = name.trim().length <= 100;
-    
-    return lengthValid;
-  }
+  
 
   const validateTema = (name) => {
     
@@ -95,11 +90,7 @@ const validateName = (name) => {
     let tema = myForm["select-tema"].value;
     let tipo = myForm["tipo"].value;
     let sector =myForm["comments"].value;
-    console.log(Number(fechai.slice(11,13)))
-    console.log(Number(fechai.slice(14,16)))
-    console.log(Number(fechai.slice(0,4)))
-    console.log(Number(fechai.slice(5,7)))
-    console.log(Number(fechai.slice(8,10)))
+    
   
     // variables auxiliares de validación y función.
     let invalidInputs = [];
@@ -109,6 +100,9 @@ const validateName = (name) => {
       isValid &&= false;
     };
   
+
+    
+    
     // lógica de validación
     if (!validateName(name)) {
       setInvalidInput("Nombre");
@@ -125,10 +119,10 @@ const validateName = (name) => {
       setInvalidInput("Fotos");
     }
     if (!validateSelect(department)) {
-      setInvalidInput("Departamento");
+      setInvalidInput("Region");
     }
     if (!validateSelect(curso)) {
-      setInvalidInput("Curso");
+      setInvalidInput("Comuna");
     }
     if (!validateSelect(tema)) {
       setInvalidInput("Tema");
@@ -169,7 +163,7 @@ const validateName = (name) => {
       myForm.style.display = "none";
   
       // establecer mensaje de éxito
-      validationMessageElem.innerText = "¡Formulario válido! ¿Deseas enviarlo o volver?";
+      validationMessageElem.innerText = "“¿Está seguro que desea agregar esta actividad?";
       validationListElem.textContent = "";
   
       // aplicar estilos de éxito
@@ -178,15 +172,40 @@ const validateName = (name) => {
   
       // Agregar botones para enviar el formulario o volver
       let submitButton = document.createElement("button");
-      submitButton.innerText = "Enviar";
+      submitButton.innerText = "Sí, estoy seguro";
       submitButton.style.marginRight = "10px";
       submitButton.addEventListener("click", () => {
-        // myForm.submit();
-        // no tenemos un backend al cual enviarle los datos
+
+        const mens = document.createElement('p');
+        //mens.className = "main-container";
+
+        const pal = document.createTextNode("Hemos recibido su información, muchas gracias y suerte en su actividad");
+       
+
+        mens.appendChild(pal);
+
+
+        let el = document.getElementById("mensajef");
+        el.appendChild(mens);
+
+        let submitButton = document.createElement("button");
+        submitButton.innerText = "Volver a la portada";
+        submitButton.style.marginRight = "10px";
+        el.appendChild(submitButton)
+        submitButton.addEventListener("click", () => {
+
+          window.location.href="../html/portada.html";
+
+        
+        
+      });
+
+        
+        
       });
   
       let backButton = document.createElement("button");
-      backButton.innerText = "Volver";
+      backButton.innerText = "No, no estoy seguro, quiero volver al formulario";
       backButton.addEventListener("click", () => {
         // Mostrar el formulario nuevamente
         myForm.style.display = "block";
