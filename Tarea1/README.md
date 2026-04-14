@@ -22,18 +22,5 @@ La solucion incluye:
 - Validacion de archivos: minimo 1, maximo 5, solo imagen o video.
 - Validacion de enlace: solo URL con http/https.
 
-## Persistencia
-No se almacena informacion ingresada por el usuario.
-Este proyecto es un prototipo de interfaz, navegacion y validaciones.
 
-## Como ejecutar
-1. Abrir el archivo html/index.html en el navegador.
-2. Probar formulario de miembros y validar mensajes.
-3. Probar formulario de actividades y validar mensajes.
-4. Revisar el listado de miembros de ejemplo.
 
-## Notas
-- Esta es una version basica.
-- No incluye backend, autenticacion ni carga real de binarios al servidor.
-- No utiliza servidor web ni base de datos.
-- Listados sin filtros, ordenamiento y paginacion por decision de alcance para MVP.
