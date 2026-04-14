@@ -1,4 +1,4 @@
-# Tarea 1 - Sistema Basico de Comunidad y Actividades
+# Tarea 1
 
 ## Descripcion
 Implementacion de un sistema web basico para registrar miembros de la comunidad y las actividades que realizan fuera de sus obligaciones academicas y laborales.
@@ -12,7 +12,7 @@ La solucion incluye:
 ## Estructura de carpetas
 - html/: paginas del sistema.
 - css/: estilos globales.
-- js/: logica de validacion, almacenamiento y renderizado.
+- js/: logica de validacion y renderizado.
 
 ## Reglas implementadas
 - Validacion de nombre y tipo de miembro.
@@ -22,5 +22,9 @@ La solucion incluye:
 - Validacion de archivos: minimo 1, maximo 5, solo imagen o video.
 - Validacion de enlace: solo URL con http/https.
 
+## Algunas Decisiones Tomadas
 
+- 4 Interfaces + portada para interactuar con el sitio
+- Un solo css global.
+- Pagina de estadisticas con graficos hechos html+css.
 
