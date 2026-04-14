@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de Actividades</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <h1>Registro de Actividades</h1>
+      <p>Registra actividades con horario, archivos y enlace de contenido propio.</p>
+    </div>
+  </header>
+
+  <main>
+    <form id="activityForm" novalidate>
+      <div class="field">
+        <label for="memberId">Miembro asociado *</label>
+        <select id="memberId" name="memberId" required>
+          <option value="">Selecciona un miembro</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="activityTitle">Titulo de la actividad *</label>
+        <input id="activityTitle" name="activityTitle" type="text" required>
+      </div>
+
+      <div class="field">
+        <label for="activityType">Tipo de actividad *</label>
+        <select id="activityType" name="activityType" required>
+          <option value="">Selecciona un tipo</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Dias dedicados *</label>
+        <div id="daysContainer" class="days-grid"></div>
+      </div>
+
+      <div class="grid">
+        <div class="field">
+          <label for="startTime">Hora inicio *</label>
+          <input id="startTime" name="startTime" type="time" required>
+        </div>
+        <div class="field">
+          <label for="endTime">Hora termino *</label>
+          <input id="endTime" name="endTime" type="time" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="description">Descripcion breve *</label>
+        <textarea id="description" name="description" required></textarea>
+      </div>
+
+      <div class="field">
+        <label for="mediaFiles">Fotos o videos (1 a 5 archivos) *</label>
+        <input id="mediaFiles" name="mediaFiles" type="file" accept="image/*,video/*" multiple required>
+      </div>
+
+      <div class="field">
+        <label for="contentLink">Enlace a contenido propio *</label>
+        <input id="contentLink" name="contentLink" type="url" placeholder="https://..." required>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit">Guardar actividad</button>
+        <a class="link-btn" href="./index.html">Volver</a>
+      </div>
+
+      <p id="activityNotice" class="notice" hidden></p>
+    </form>
+  </main>
+
+  <script src="../js/validation.js"></script>
+  <script src="../js/activities-form.js"></script>
+</body>
+</html>

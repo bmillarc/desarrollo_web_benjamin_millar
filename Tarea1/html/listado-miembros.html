@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Listado de Miembros</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <h1>Listado de Miembros</h1>
+      <p>Vista basica de miembros registrados.</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="form-actions">
+      <a class="link-btn" href="./index.html">Volver</a>
+    </div>
+
+    <div class="card">
+      <div class="grid">
+        <div class="field">
+          <label for="filterMemberType">Filtrar por tipo</label>
+          <select id="filterMemberType">
+            <option value="">Todos</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="sortMembers">Ordenar por</label>
+          <select id="sortMembers">
+            <option value="name">Nombre (A-Z)</option>
+            <option value="contact">Dato de contacto (A-Z)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <p id="membersEmpty" class="notice" hidden>No hay miembros registrados aun.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Tipo</th>
+          <th>Telegram</th>
+          <th>Telefono</th>
+          <th>Correo</th>
+          <th>Dato adicional</th>
+          <th>Fecha registro</th>
+        </tr>
+      </thead>
+      <tbody id="membersTableBody"></tbody>
+    </table>
+
+    <div class="form-actions" style="margin-top: 0.8rem;">
+      <button id="prevPage" type="button">Anterior</button>
+      <span id="pageInfo" class="small"></span>
+      <button id="nextPage" type="button">Siguiente</button>
+    </div>
+  </main>
+
+  <script src="../js/list-members.js"></script>
+</body>
+</html>

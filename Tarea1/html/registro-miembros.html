@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de Miembros</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <h1>Registro de Miembros</h1>
+      <p>Identifica y contacta a integrantes de la comunidad.</p>
+    </div>
+  </header>
+
+  <main>
+    <form id="memberForm" novalidate>
+      <div class="field">
+        <label for="fullName">Nombre completo *</label>
+        <input id="fullName" name="fullName" type="text" required>
+      </div>
+
+      <div class="field">
+        <label for="memberType">Tipo de miembro *</label>
+        <select id="memberType" name="memberType" required>
+          <option value="">Selecciona una opcion</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="email">Correo electronico *</label>
+        <input id="email" name="email" type="email" required>
+      </div>
+
+      <div class="field">
+        <label for="telegramUser">Usuario de Telegram</label>
+        <input id="telegramUser" name="telegramUser" type="text" placeholder="@usuario">
+      </div>
+
+      <div class="field">
+        <label for="phone">Telefono</label>
+        <input id="phone" name="phone" type="tel" placeholder="+569 12345678">
+        <p class="small" style="color: #d1223a; font-weight: 700;">Debes ingresar al menos Telegram o telefono.</p>
+      </div>
+
+      <div class="field">
+        <label id="extraDataLabel" for="extraData">Dato adicional *</label>
+        <input id="extraData" name="extraData" type="text" required>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit">Guardar miembro</button>
+        <a class="link-btn" href="./index.html">Volver</a>
+      </div>
+
+      <p id="memberNotice" class="notice" hidden></p>
+    </form>
+  </main>
+
+  <script src="../js/validation.js"></script>
+  <script src="../js/members-form.js"></script>
+</body>
+</html>
