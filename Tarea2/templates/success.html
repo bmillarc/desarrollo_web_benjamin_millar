@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Éxito{% endblock %}
+
+{% block content %}
+  <div style="max-width: 600px; margin: 2rem auto; padding: 2rem; background: var(--surface); border: 2px solid var(--accent-2); border-radius: 14px; text-align: center;">
+    <div style="font-size: 3rem; color: var(--accent-2); margin-bottom: 1rem;">✓</div>
+    <h2 style="color: var(--accent-2); margin-top: 0;">¡Operación Exitosa!</h2>
+    <p style="font-size: 1.1rem; color: var(--muted); margin: 1rem 0;">{{ message }}</p>
+    
+    <div style="background: var(--surface-soft); padding: 1rem; border-radius: 10px; margin: 1.5rem 0; font-size: 0.95rem;">
+      <p>Los datos se han guardado correctamente en la base de datos.</p>
+    </div>
+
+    <div class="form-actions" style="justify-content: center;">
+      <a class="link-btn" href="{{ redirect_url }}">Volver al inicio</a>
+      <a class="link-btn" href="{{ url_for('list_members') }}">Ver listado</a>
+    </div>
+  </div>
+{% endblock %}

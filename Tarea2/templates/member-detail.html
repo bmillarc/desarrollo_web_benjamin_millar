@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}Detalles del Miembro{% endblock %}
+{% block header_title %}Información del Miembro{% endblock %}
+{% block header_subtitle %}{{ miembro.nombre }}{% endblock %}
+
+{% block content %}
+  <div class="grid">
+    <div class="card" style="grid-column: 1 / -1;">
+      <h2>Datos del Miembro</h2>
+      <table style="margin: 0;">
+        <tr>
+          <td style="font-weight: bold; width: 150px;">Nombre</td>
+          <td>{{ miembro.nombre }}</td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold;">Tipo</td>
+          <td>{{ miembro.tipo }}</td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold;">Correo</td>
+          <td><a href="mailto:{{ miembro.email }}">{{ miembro.email }}</a></td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold;">Teléfono</td>
+          <td>{{ miembro.telefono if miembro.telefono else '-' }}</td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold;">Telegram</td>
+          <td>{{ miembro.telegram_user if miembro.telegram_user else '-' }}</td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold;">
+            {% if miembro.tipo == 'Estudiante de pregrado' %}
+              Carrera
+            {% elif miembro.tipo == 'Estudiante de postgrado' %}
+              Programa
+            {% elif miembro.tipo == 'Funcionario' %}
+              Unidad
+            {% else %}
+              Departamento
+            {% endif %}
+          </td>
+          <td>{{ miembro.dato_adicional }}</td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold;">Comuna</td>
+          <td>{{ miembro.comuna.nombre if miembro.comuna else '-' }}</td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold;">Registrado</td>
+          <td>{{ miembro.fecha_registro.strftime('%d/%m/%Y %H:%M') }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  {% if actividades %}
+    <h2 style="margin-top: 2rem;">Actividades Registradas ({{ actividades|length }})</h2>
+    <div class="grid" style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
+      {% for actividad in actividades %}
+        <div class="card">
+          <h3>{{ actividad.nombre }}</h3>
+          <p><strong>Tipo:</strong> {{ actividad.tipo }}</p>
+          <p><strong>Días:</strong> {{ actividad.dia }}</p>
+          <p><strong>Hora:</strong> {{ actividad.hora_inicio }} ({{ actividad.duracion }})</p>
+          <p><strong>Descripción:</strong></p>
+          <p style="margin-top: 0.5rem; color: var(--muted); font-size: 0.95rem;">{{ actividad.descripcion }}</p>
+          
+          {% if actividad.enlace %}
+            <p style="margin-bottom: 0.5rem;">
+              <a href="{{ actividad.enlace }}" target="_blank" rel="noopener">Ver contenido →</a>
+            </p>
+          {% endif %}
+
+          {% if actividad.fotos %}
+            <div style="margin-top: 0.8rem; padding-top: 0.8rem; border-top: 1px solid var(--border);">
+              <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 0.5rem;">
+                {{ actividad.fotos|length }} archivo(s) adjunto(s)
+              </p>
+              <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 0.5rem;">
+                {% for foto in actividad.fotos[:4] %}
+                  <div style="background: var(--surface-soft); border-radius: 8px; padding: 0.5rem; text-align: center; font-size: 0.75rem; word-break: break-word;">
+                    {{ foto.nombre_archivo }}
+                  </div>
+                {% endfor %}
+                {% if actividad.fotos|length > 4 %}
+                  <div style="background: var(--surface-soft); border-radius: 8px; padding: 0.5rem; text-align: center; font-weight: bold; color: var(--accent);">
+                    +{{ actividad.fotos|length - 4 }} más
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div style="margin-top: 2rem; padding: 1.5rem; background: var(--surface-soft); border-radius: 14px; text-align: center; color: var(--muted);">
+      <p>Este miembro no tiene actividades registradas aún.</p>
+      <a class="link-btn" href="{{ url_for('register_activity') }}">Registrar actividad</a>
+    </div>
+  {% endif %}
+
+  <div style="margin-top: 2rem;">
+    <a class="link-btn" href="{{ url_for('list_members') }}">← Volver al listado</a>
+  </div>
+{% endblock %}

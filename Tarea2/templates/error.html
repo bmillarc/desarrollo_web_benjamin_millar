@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Error{% endblock %}
+
+{% block content %}
+  <div style="max-width: 600px; margin: 2rem auto; padding: 2rem; background: var(--surface); border: 2px solid var(--danger); border-radius: 14px; text-align: center;">
+    <div style="font-size: 3rem; color: var(--danger); margin-bottom: 1rem;">⚠</div>
+    <h2 style="color: var(--danger); margin-top: 0;">Error</h2>
+    <p style="font-size: 1.1rem; color: var(--muted); margin: 1rem 0;">{{ error }}</p>
+    
+    <div class="form-actions" style="justify-content: center;">
+      <a class="link-btn" href="{{ request.referrer or url_for('index') }}">Volver</a>
+      <a class="link-btn" href="{{ url_for('index') }}">Ir al inicio</a>
+    </div>
+  </div>
+{% endblock %}

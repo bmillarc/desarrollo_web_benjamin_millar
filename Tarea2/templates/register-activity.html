@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block title %}Registro de Actividades{% endblock %}
+{% block header_title %}Registro de Actividades{% endblock %}
+{% block header_subtitle %}Registra actividades con horario, archivos y enlace de contenido propio.{% endblock %}
+
+{% block content %}
+  <form method="POST" enctype="multipart/form-data" novalidate>
+    <div class="field">
+      <label for="memberId">Miembro asociado *</label>
+      <select id="memberId" name="memberId" required>
+        <option value="">Selecciona un miembro</option>
+        {% for member in members %}
+          <option value="{{ member.id }}" {% if form_data and form_data.get('memberId') == member.id|string %}selected{% endif %}>
+            {{ member.nombre }} ({{ member.tipo }})
+          </option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="activityTitle">Título de la actividad *</label>
+      <input id="activityTitle" name="activityTitle" type="text" required 
+             value="{{ form_data.get('activityTitle', '') if form_data else '' }}">
+    </div>
+
+    <div class="field">
+      <label for="activityType">Tipo de actividad *</label>
+      <select id="activityType" name="activityType" required>
+        <option value="">Selecciona un tipo</option>
+        <option value="Artística" {% if form_data and form_data.get('activityType') == 'Artística' %}selected{% endif %}>Artística</option>
+        <option value="Deportiva" {% if form_data and form_data.get('activityType') == 'Deportiva' %}selected{% endif %}>Deportiva</option>
+        <option value="Tecnológica" {% if form_data and form_data.get('activityType') == 'Tecnológica' %}selected{% endif %}>Tecnológica</option>
+        <option value="Social" {% if form_data and form_data.get('activityType') == 'Social' %}selected{% endif %}>Social</option>
+        <option value="Recreativa" {% if form_data and form_data.get('activityType') == 'Recreativa' %}selected{% endif %}>Recreativa</option>
+        <option value="Otra" {% if form_data and form_data.get('activityType') == 'Otra' %}selected{% endif %}>Otra</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Días dedicados *</label>
+      <div id="daysContainer" class="days-grid"></div>
+    </div>
+
+    <div class="grid">
+      <div class="field">
+        <label for="startTime">Hora inicio *</label>
+        <input id="startTime" name="startTime" type="time" required 
+               value="{{ form_data.get('startTime', '') if form_data else '' }}">
+      </div>
+      <div class="field">
+        <label for="endTime">Hora término *</label>
+        <input id="endTime" name="endTime" type="time" required 
+               value="{{ form_data.get('endTime', '') if form_data else '' }}">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="description">Descripción breve *</label>
+      <textarea id="description" name="description" required>{{ form_data.get('description', '') if form_data else '' }}</textarea>
+    </div>
+
+    <div class="field">
+      <label for="mediaFiles">Fotos o videos (1 a 5 archivos) *</label>
+      <input id="mediaFiles" name="mediaFiles" type="file" accept="image/*,video/*" multiple required>
+      <p class="small">Formatos permitidos: JPG, PNG, GIF, MP4, AVI, MOV, WEBM</p>
+    </div>
+
+    <div class="field">
+      <label for="contentLink">Enlace a contenido propio *</label>
+      <input id="contentLink" name="contentLink" type="url" placeholder="https://..." 
+             value="{{ form_data.get('contentLink', '') if form_data else '' }}" required>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit">Guardar actividad</button>
+      <a class="link-btn" href="{{ url_for('index') }}">Volver</a>
+    </div>
+  </form>
+
+  <script>
+    const AppConfig = {
+      memberTypes: ["Estudiante de pregrado", "Estudiante de postgrado", "Funcionario", "Académico"],
+      activityTypes: ["Artística", "Deportiva", "Tecnológica", "Social", "Recreativa", "Otra"],
+      weekDays: ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
+      extraFieldLabels: {
+        "Estudiante de pregrado": "Carrera",
+        "Estudiante de postgrado": "Programa",
+        Funcionario: "Unidad",
+        Académico: "Departamento"
+      }
+    };
+
+    const daysContainer = document.getElementById("daysContainer");
+    const selectedDays = {{ (form_data.get('days', []) if form_data else []) | tojson }};
+
+    const renderDays = () => {
+      daysContainer.innerHTML = "";
+      AppConfig.weekDays.forEach((day) => {
+        const item = document.createElement("label");
+        item.className = "inline";
+
+        const input = document.createElement("input");
+        input.type = "checkbox";
+        input.value = day;
+        input.name = "days";
+        if (selectedDays.includes(day)) {
+          input.checked = true;
+        }
+
+        const text = document.createElement("span");
+        text.textContent = day;
+
+        item.appendChild(input);
+        item.appendChild(text);
+        daysContainer.appendChild(item);
+      });
+    };
+
+    window.addEventListener("DOMContentLoaded", () => {
+      renderDays();
+    });
+  </script>
+{% endblock %}

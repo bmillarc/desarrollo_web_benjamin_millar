@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Estadisticas Basicas{% endblock %}
+{% block header_title %}Indicadores y Metricas (Version Basica){% endblock %}
+{% block header_subtitle %}Visualizacion estatica de ejemplo.{% endblock %}
+
+{% block content %}
+  <div class="form-actions">
+    <a class="link-btn" href="{{ url_for('index') }}">Volver</a>
+  </div>
+
+  <div class="metrics">
+    <article class="metric">
+      <h2>Resumen general</h2>
+      <p>Total miembros (ejemplo): 120</p>
+      <p>Total actividades (ejemplo): 84</p>
+      <p>Participacion semanal (ejemplo): 63%</p>
+      
+    </article>
+
+    <article class="metric">
+      <h2>Distribucion por tipo</h2>
+      <div class="fake-bar a"><span>Artistica 28%</span></div>
+      <div class="fake-bar b"><span>Deportiva 20%</span></div>
+      <div class="fake-bar c"><span>Tecnologica 24%</span></div>
+      <div class="fake-bar d"><span>Social 12%</span></div>
+      <div class="fake-bar e"><span>Recreativa 16%</span></div>
+    </article>
+
+    <article class="metric">
+      <h2>Actividad por horario</h2>
+      <p>Manana: alto crecimiento.</p>
+      <p>Tarde: estable.</p>
+      <p>Noche: alza en viernes y sabado.</p>
+      
+    </article>
+  </div>
+
+{% endblock %}

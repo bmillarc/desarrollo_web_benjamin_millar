@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Sistema de Actividades de la Comunidad{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <h1>{% block header_title %}Sistema de Actividades de la Comunidad{% endblock %}</h1>
+      <p>{% block header_subtitle %}Registro y consulta de miembros y actividades no académicas/laborales.{% endblock %}</p>
+        <nav class="main-nav">
+          <a href="{{ url_for('index') }}">Inicio</a>
+          <a href="{{ url_for('list_members') }}">Listado Miembros</a>
+          <a href="{{ url_for('register_member') }}">Registrar Miembro</a>
+          <a href="{{ url_for('register_activity') }}">Registrar Actividad</a>
+          <a href="{{ url_for('statistics') }}">Estadísticas</a>
+          {% if request.path != '/' %}
+            <span class="back-link">← <a href="{{ url_for('index') }}">Volver al inicio</a></span>
+          {% endif %}
+        </nav>
+    </div>
+  </header>
+
+  <main>
+    {% if errors %}
+      <div class="notice error">
+        <strong>Errores en el formulario:</strong>
+        <ul>
+          {% for error in errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+    {% block content %}{% endblock %}
+  </main>
+
+  
+
+  <script src="{{ url_for('static', filename='js/validation.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

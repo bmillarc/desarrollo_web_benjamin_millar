@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Listado de Miembros{% endblock %}
+{% block header_title %}Listado de Miembros{% endblock %}
+{% block header_subtitle %}Consulta a los miembros registrados. Haz click en una fila para ver detalles.{% endblock %}
+
+{% block content %}
+  {% if total_members > 0 %}
+    <div style="margin-bottom: 1rem; color: var(--muted);">
+      <p>Total de miembros: <strong>{{ total_members }}</strong></p>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Tipo</th>
+          <th>Correo</th>
+          <th>Contacto</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for member in members %}
+          <tr style="cursor: pointer;" onclick="window.location.href='{{ url_for('member_detail', member_id=member.id) }}'">
+            <td><strong>{{ member.nombre }}</strong></td>
+            <td>{{ member.tipo }}</td>
+            <td>{{ member.email }}</td>
+            <td>
+              {% if member.telegram_user %}
+                <span>{{ member.telegram_user }}</span>
+              {% elif member.telefono %}
+                <span>{{ member.telefono }}</span>
+              {% else %}
+                <span style="color: var(--muted);">-</span>
+              {% endif %}
+            </td>
+            <td>
+              <a class="link-btn" href="{{ url_for('member_detail', member_id=member.id) }}" style="padding: 0.4rem 0.6rem; font-size: 0.9rem;">Ver</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    {% if total_pages > 1 %}
+      <div style="margin-top: 1.5rem; display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap;">
+        {% if current_page > 1 %}
+          <a class="link-btn" href="{{ url_for('list_members', page=1) }}">« Primera</a>
+          <a class="link-btn" href="{{ url_for('list_members', page=current_page - 1) }}">‹ Anterior</a>
+        {% endif %}
+
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span>Página <strong>{{ current_page }}</strong> de <strong>{{ total_pages }}</strong></span>
+        </div>
+
+        {% if current_page < total_pages %}
+          <a class="link-btn" href="{{ url_for('list_members', page=current_page + 1) }}">Siguiente ›</a>
+          <a class="link-btn" href="{{ url_for('list_members', page=total_pages) }}">Última »</a>
+        {% endif %}
+      </div>
+    {% endif %}
+  {% else %}
+    <div style="padding: 2rem; text-align: center; color: var(--muted);">
+      <p style="font-size: 1.1rem;">No hay miembros registrados aún.</p>
+      <a class="link-btn" href="{{ url_for('register_member') }}">Registrar el primer miembro</a>
+    </div>
+  {% endif %}
+{% endblock %}
