@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}Estadísticas del Sistema{% endblock %}
+{% block header_title %}Indicadores y Métricas{% endblock %}
+{% block header_subtitle %}Estadísticas generadas dinámicamente con Highcharts.{% endblock %}
+
+{% block content %}
+  <div class="metrics" style="display: flex; flex-direction: column; gap: 2rem;">
+    <article class="card">
+      <div id="chart-members-day" style="width:100%; height:400px;"></div>
+    </article>
+
+    <article class="card">
+      <div id="chart-activities-type" style="width:100%; height:400px;"></div>
+    </article>
+
+    <article class="card">
+      <div id="chart-activities-commune" style="width:100%; height:400px;"></div>
+    </article>
+  </div>
+
+  <div class="form-actions" style="margin-top: 2rem; justify-content: center;">
+    <a class="link-btn" href="{{ url_for('index') }}">Volver a la portada</a>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Llamada asíncrona usando fetch hacia la URL de Flask
+      fetch('{{ url_for("api_stats") }}')
+        .then(response => response.json())
+        .then(data => {
+          
+          // 1. Gráfico de líneas que informa la cantidad de miembros registrados por día
+          Highcharts.chart('chart-members-day', {
+            title: { text: 'Cantidad de Miembros Registrados por Día' },
+            xAxis: { 
+              categories: Object.keys(data.members_by_day), // Muestra los días en el eje X
+              title: { text: 'Día' } 
+            },
+            yAxis: { 
+              title: { text: 'Cantidad de Miembros' }, // Muestra la cantidad en el eje Y
+              allowDecimals: false 
+            },
+            series: [{
+              name: 'Miembros',
+              data: Object.values(data.members_by_day),
+              type: 'line',
+              color: '#0f7aa8'
+            }]
+          });
+
+          // 2. Gráfico de torta que muestra el total de actividades extraprogramáticas por tipo
+          const typeData = Object.keys(data.activities_by_type).map(key => ({
+            name: key,
+            y: data.activities_by_type[key]
+          }));
+
+          Highcharts.chart('chart-activities-type', {
+            chart: { type: 'pie' },
+            title: { text: 'Total de Actividades por Tipo' },
+            series: [{
+              name: 'Actividades',
+              colorByPoint: true,
+              data: typeData
+            }]
+          });
+
+          // 3. Gráfico de barras que muestra el total de actividades registradas por comuna
+          Highcharts.chart('chart-activities-commune', {
+            chart: { type: 'column' }, // 'column' genera barras verticales
+            title: { text: 'Total de Actividades Registradas por Comuna' },
+            xAxis: { 
+              categories: Object.keys(data.activities_by_commune), // Despliega las comunas en el eje X
+              title: { text: 'Comuna' } 
+            },
+            yAxis: { 
+              title: { text: 'Total de Actividades' }, // Muestra la cantidad de actividades en el eje Y
+              allowDecimals: false 
+            },
+            series: [{
+              name: 'Actividades',
+              data: Object.values(data.activities_by_commune),
+              color: '#1f9e73'
+            }]
+          });
+
+        })
+        .catch(error => console.error('Error obteniendo los datos para las estadísticas:', error));
+    });
+  </script>
+{% endblock %}

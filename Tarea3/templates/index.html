@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Página Principal{% endblock %}
+{% block header_title %}Sistema Básico de Actividades de la Comunidad{% endblock %}
+{% block header_subtitle %}Bienvenidx. Puedes revisar las actividades o registrar nuevas.{% endblock %}
+
+{% block content %}
+  <div class="grid">
+    <article class="card">
+      <h2>1) Registrar miembros</h2>
+      <p>Ingresa estudiantes de pre/postgrado, funcionarios y académicos con datos de contacto.</p>
+      <a class="link-btn" href="{{ url_for('register_member') }}">Ir a formulario</a>
+    </article>
+
+    <article class="card">
+      <h2>2) Registrar actividades</h2>
+      <p>Asocia actividades por tipo, días, horas, enlace y al menos un archivo multimedia.</p>
+      <a class="link-btn" href="{{ url_for('register_activity') }}">Ir a formulario</a>
+    </article>
+
+    <article class="card">
+      <h2>3) Ver listado</h2>
+      <p>Consulta a los miembros registrados con paginación. Haz click en un miembro para ver más detalles.</p>
+      <div class="form-actions">
+        <a class="link-btn" href="{{ url_for('list_members') }}">Listado de miembros</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <h2>4) Revisar métricas</h2>
+      <p>Visualiza indicadores y gráficos con estadísticas de miembros y actividades.</p>
+      <a class="link-btn" href="{{ url_for('statistics') }}">Ir a estadísticas</a>
+    </article>
+  </div>
+
+  <div style="margin-top: 2rem; padding: 1rem; background: var(--surface-soft); border-radius: 14px;">
+    <h3>Resumen General</h3>
+    <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
+      <div style="text-align: center;">
+        <div style="font-size: 2rem; color: var(--accent); font-weight: bold;">{{ total_members }}</div>
+        <p style="margin: 0.5rem 0 0;">Miembros registrados</p>
+      </div>
+      <div style="text-align: center;">
+        <div style="font-size: 2rem; color: var(--accent-2); font-weight: bold;">{{ total_activities }}</div>
+        <p style="margin: 0.5rem 0 0;">Actividades registradas</p>
+      </div>
+      <div style="text-align: center;">
+        <div style="font-size: 2rem; color: var(--warning); font-weight: bold;">{{ total_photos }}</div>
+        <p style="margin: 0.5rem 0 0;">Archivos multimedia</p>
+      </div>
+    </div>
+  </div>
+{% endblock %}

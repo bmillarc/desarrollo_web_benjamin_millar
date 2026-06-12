@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block title %}Registro de Miembros{% endblock %}
+{% block header_title %}Registro de Miembros{% endblock %}
+{% block header_subtitle %}Identifica y contacta a integrantes de la comunidad.{% endblock %}
+
+{% block content %}
+  <form method="POST" novalidate>
+    <div class="field">
+      <label for="fullName">Nombre completo *</label>
+      <input id="fullName" name="fullName" type="text" required 
+             value="{{ form_data.get('fullName', '') if form_data else '' }}">
+    </div>
+
+    <div class="field">
+      <label for="memberType">Tipo de miembro *</label>
+      <select id="memberType" name="memberType" required>
+        <option value="">Selecciona una opción</option>
+        <option value="Estudiante de pregrado" {% if form_data and form_data.get('memberType') == 'Estudiante de pregrado' %}selected{% endif %}>Estudiante de pregrado</option>
+        <option value="Estudiante de postgrado" {% if form_data and form_data.get('memberType') == 'Estudiante de postgrado' %}selected{% endif %}>Estudiante de postgrado</option>
+        <option value="Funcionario" {% if form_data and form_data.get('memberType') == 'Funcionario' %}selected{% endif %}>Funcionario</option>
+        <option value="Académico" {% if form_data and form_data.get('memberType') == 'Académico' %}selected{% endif %}>Académico</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="email">Correo electrónico *</label>
+      <input id="email" name="email" type="email" required 
+             value="{{ form_data.get('email', '') if form_data else '' }}">
+    </div>
+
+    <div class="field">
+      <label for="communaId">Comuna/Región *</label>
+      <select id="communaId" name="comunaId" required>
+        <option value="">Selecciona una comuna</option>
+        {% for region_name, comunas in communes.items() %}
+          <optgroup label="{{ region_name }}">
+            {% for comuna in comunas %}
+              <option value="{{ comuna.id }}" {% if form_data and form_data.get('comunaId') == comuna.id|string %}selected{% endif %}>
+                {{ comuna.nombre }}
+              </option>
+            {% endfor %}
+          </optgroup>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="telegramUser">Usuario de Telegram (con @) *</label>
+      <input id="telegramUser" name="telegramUser" type="text" placeholder="@usuario" required
+             value="{{ form_data.get('telegramUser', '') if form_data else '' }}">
+      <p class="small">Debes ingresar con @ incluido, ej: @miusuario</p>
+    </div>
+
+    <div class="field">
+      <label for="phone">Teléfono</label>
+      <input id="phone" name="phone" type="tel" placeholder="+569 12345678" 
+             value="{{ form_data.get('phone', '') if form_data else '' }}">
+      <p class="small">Debes ingresar al menos Telegram o teléfono.</p>
+    </div>
+
+    <div class="field">
+      <label id="extraDataLabel" for="extraData">Dato adicional *</label>
+      <input id="extraData" name="extraData" type="text" 
+             value="{{ form_data.get('extraData', '') if form_data else '' }}" required>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit">Guardar miembro</button>
+      <a class="link-btn" href="{{ url_for('index') }}">Volver</a>
+    </div>
+  </form>
+
+  <script>
+    const AppConfig = {
+      memberTypes: ["Estudiante de pregrado", "Estudiante de postgrado", "Funcionario", "Académico"],
+      activityTypes: ["Artística", "Deportiva", "Tecnológica", "Social", "Recreativa", "Otra"],
+      weekDays: ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
+      extraFieldLabels: {
+        "Estudiante de pregrado": "Carrera",
+        "Estudiante de postgrado": "Programa",
+        Funcionario: "Unidad",
+        Académico: "Departamento"
+      }
+    };
+
+    const memberTypeSelect = document.getElementById("memberType");
+    const extraDataLabel = document.getElementById("extraDataLabel");
+    const extraDataInput = document.getElementById("extraData");
+
+    const updateExtraLabel = () => {
+      const labelText = AppConfig.extraFieldLabels[memberTypeSelect.value] || "Dato adicional";
+      extraDataLabel.textContent = `${labelText} *`;
+      extraDataInput.placeholder = `Ingresa ${labelText.toLowerCase()}`;
+    };
+
+    memberTypeSelect.addEventListener("change", updateExtraLabel);
+
+    window.addEventListener("DOMContentLoaded", () => {
+      updateExtraLabel();
+    });
+  </script>
+{% endblock %}
