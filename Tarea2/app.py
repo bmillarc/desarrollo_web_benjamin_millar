@@ -4,7 +4,7 @@ from validations import (
     validate_member_data, validate_activity_data,
     sanitize_string, validate_time_format
 )
-from config import Config
+from db.config import Config
 from werkzeug.utils import secure_filename
 import os
 from datetime import datetime

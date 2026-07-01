@@ -2,7 +2,7 @@
 
 
 from app import app, db
-from config import Config
+from db.config import Config
 import pymysql
 import sys
 

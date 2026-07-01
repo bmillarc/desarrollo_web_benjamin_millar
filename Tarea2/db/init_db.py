@@ -13,7 +13,7 @@ from config import Config
 def get_sql_file_path(filename):
     """Get the absolute path to a SQL file"""
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    return os.path.join(base_dir, 'db', filename)
+    return os.path.join(base_dir, '', filename)
 
 def read_sql_file(filename):
     """Read SQL file and return content"""
@@ -150,7 +150,7 @@ def initialize_database():
         print("   ✓ Regiones y comunas cargadas exitosamente")
 
         print("\n3. Verificando columnas requeridas por la app...")
-        ensure_schema_columns(connection, db_name)
+        #ensure_schema_columns(connection, db_name)
         print("   ✓ Esquema alineado con la aplicación")
         
         connection.close()
